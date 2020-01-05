@@ -3,6 +3,7 @@
 <html>
 <head>
     <script src="bootstrap/js/jquery-1.12.4.js"></script>
+    <script src="http://code.jquery.com/jqueryversion.js"></script>
     <script>
         $("#yanzheng").click(function () {
             alert("点哦！");
