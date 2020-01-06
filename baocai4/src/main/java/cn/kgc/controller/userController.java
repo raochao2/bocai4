@@ -1,9 +1,6 @@
 package cn.kgc.controller;
 
-import cn.kgc.domain.PageUtil;
-import cn.kgc.domain.people;
-import cn.kgc.domain.result;
-import cn.kgc.domain.totalist;
+import cn.kgc.domain.*;
 import cn.kgc.service.peopleService;
 import cn.kgc.service.resultService;
 import com.github.pagehelper.PageInfo;
@@ -86,19 +83,40 @@ public class userController {
         return "forward:login";
     }
     //发请求 发送验证码
-    /*@RequestMapping("sendCode")
+    @RequestMapping("sendCode")
     @ResponseBody
     public  String sendCode(String tel, HttpSession session){
         //生成随机数
         int code=(int)Math.round((Math.random()+1) * 1000);
         //sessioin保存手机的验证码
         session.setAttribute("code",code);
-
-
-        String msg="验证码是:"+code+" 请不要让其它人看见获取";
+        String msg="验证码是:"+code+" 请不要让其它人看见获取!";
         //发送消息
         SendMsgUtil sendMsgUtil=new SendMsgUtil();
         int result=sendMsgUtil.sendMsg(tel,msg);
         return "{\"result\":"+result +"}";
-    }*/
+    }
+    @RequestMapping("login2")
+    public String login2(String inputCode,String id,HttpSession session){
+       Object obj=session.getAttribute("code");
+           if(obj==null){
+            return "redirect:index.jsp";
+           }
+        String code=obj.toString();
+        if(code.equals(inputCode)){
+            people user=service.findPeople(id);
+            if(user==null){
+               return "redirect:index.jsp";
+            }
+            session.setAttribute("people",user);
+            return "forward:main.jsp";
+
+        }else{
+            //通过手机号，查询当用户信息
+            return "redirect:index.jsp";
+        }
+    }
+
+
+
 }

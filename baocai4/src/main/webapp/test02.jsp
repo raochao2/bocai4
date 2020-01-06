@@ -9,7 +9,7 @@
     <script>
         $(function () {
             $("#btn").click(function () {
-                alert("点自己！");
+                alert("nihao a 哈哈！");
             })
         })
     </script>
